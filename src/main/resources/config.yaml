@@ -1,0 +1,4 @@
+feed:
+  type: random
+  bound: 100
+  size: 10
