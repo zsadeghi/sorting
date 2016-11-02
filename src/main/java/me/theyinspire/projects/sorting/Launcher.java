@@ -8,7 +8,6 @@ import me.theyinspire.projects.sorting.feed.DataFeedReader;
 import me.theyinspire.projects.sorting.stats.BenchmarkRunner;
 import me.theyinspire.projects.sorting.stats.BookKeeperStatistics;
 import me.theyinspire.projects.sorting.stats.impl.AverageBookKeeperStatistics;
-import me.theyinspire.projects.sorting.stats.impl.ImmutableBookKeeperStatistics;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 
