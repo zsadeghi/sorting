@@ -418,7 +418,7 @@ public final class NumberUtils {
     }
 
     @SuppressWarnings("unchecked")
-    private static <E extends Number> E cast(Class<E> type, Integer original) {
+    public static <E extends Number> E cast(Class<E> type, Integer original) {
         if (Float.class.equals(type)) {
             return (E) (Float) original.floatValue();
         } else if (Long.class.equals(type)) {

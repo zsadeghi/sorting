@@ -16,6 +16,7 @@ public class RawConfiguration {
 
     private FeedConfiguration feed;
     private Integer runs = 3;
+    private String output = "src/main/resources/reports";
 
     public FeedConfiguration getFeed() {
         return feed;
@@ -31,6 +32,14 @@ public class RawConfiguration {
 
     public void setRuns(Integer runs) {
         this.runs = runs;
+    }
+
+    public String getOutput() {
+        return output;
+    }
+
+    public void setOutput(String output) {
+        this.output = output;
     }
 
     public ExecutionConfiguration compile() throws IOException {
@@ -55,6 +64,8 @@ public class RawConfiguration {
         }
         configuration.setFeed(feed);
         configuration.setRuns(runs);
+        configuration.setOutput(output);
         return configuration;
     }
+
 }

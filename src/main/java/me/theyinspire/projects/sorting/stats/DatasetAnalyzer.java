@@ -7,8 +7,8 @@ import java.util.Map;
  * @author Zohreh Sadeghi (zsadeghi@uw.edu)
  * @since 1.0 (11/2/16, 12:24 PM)
  */
-public interface DatasetAnalyzer<X extends Number, Y extends Number> {
+public interface DatasetAnalyzer {
 
-    Map<X, Map<String, List<Y>>> analyze(Map<String, List<BookKeeperStatistics>> stats, DataPointSelector<X, Y> selector);
+    <X extends Number, Y extends Number> Map<X, Map<String, Y>> analyze(Map<String, List<BookKeeperStatistics>> stats, DataPointSelector<X, Y> selector);
 
 }

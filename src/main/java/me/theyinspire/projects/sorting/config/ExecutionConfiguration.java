@@ -10,6 +10,7 @@ public class ExecutionConfiguration {
 
     private DataFeed<?> feed;
     private int runs;
+    private String output;
 
     public DataFeed<?> getFeed() {
         return feed;
@@ -25,5 +26,13 @@ public class ExecutionConfiguration {
 
     public void setRuns(int runs) {
         this.runs = runs;
+    }
+
+    public String getOutput() {
+        return output;
+    }
+
+    public void setOutput(String output) {
+        this.output = output;
     }
 }

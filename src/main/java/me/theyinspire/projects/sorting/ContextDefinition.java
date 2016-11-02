@@ -12,8 +12,11 @@ import me.theyinspire.projects.sorting.measure.SortednessMeasurer;
 import me.theyinspire.projects.sorting.measure.impl.MemoizingSortednessMeasurer;
 import me.theyinspire.projects.sorting.sort.Sorter;
 import me.theyinspire.projects.sorting.sort.impl.*;
+import me.theyinspire.projects.sorting.stats.AnalysisWriter;
 import me.theyinspire.projects.sorting.stats.BenchmarkRunner;
+import me.theyinspire.projects.sorting.stats.DatasetAnalyzer;
 import me.theyinspire.projects.sorting.stats.Sampler;
+import me.theyinspire.projects.sorting.stats.impl.DefaultAnalysisWriter;
 import me.theyinspire.projects.sorting.stats.impl.DefaultBenchmarkRunner;
 import me.theyinspire.projects.sorting.stats.impl.DefaultSampler;
 
@@ -80,6 +83,16 @@ public class ContextDefinition {
     @Bean
     public BenchmarkRunner benchmarkRunner(ApplicationContext context, Sampler sampler, ExecutionConfiguration configuration, SortednessMeasurer measurer) {
         return new DefaultBenchmarkRunner(context.getBeansOfType(Sorter.class).values(), sampler, measurer, configuration.getRuns());
+    }
+
+    @Bean
+    public DatasetAnalyzer datasetAnalyzer() {
+        return new DefaultDatasetAnalyzer();
+    }
+
+    @Bean
+    public AnalysisWriter analysisWriter(DatasetAnalyzer analyzer, ExecutionConfiguration configuration) {
+        return new DefaultAnalysisWriter(analyzer, configuration);
     }
 
 }
