@@ -6,8 +6,8 @@ import me.theyinspire.projects.sorting.stats.BookKeeperStatistics;
  * This interface represents the common problem of sorting a number of items with the only assumption being that
  * some sort of comparison can be made between individual items of the array
  *
- * @author Mohammad Milad Naseri (mmnaseri@programmer.net)
- * @since 1.0 (5/26/15, 2:19 AM)
+ * @author Zohreh Sadeghi (zsadeghi@uw.edu)
+ * @since 1.0 (11/2/16, 12:35 AM)
  */
 public interface Sorter<E extends Comparable<E>> {
 

@@ -29,6 +29,7 @@ public class Launcher {
         System.out.println("Suit 1");
         System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
         benchmark("storm");
+        if (true) return;
         System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
         System.out.println();
         System.out.println("Suit 2");
@@ -49,14 +50,14 @@ public class Launcher {
 
     private static void benchmark(String file) throws Exception {
         final ConfigurableEnvironment environment = new ConfigurableEnvironment();
-        environment.setProperty("config", "/Users/milad/Projects/Java/sorting/src/main/resources/config/" + file + ".yaml");
+        environment.setProperty("config", "src/main/resources/config/" + file + ".yaml");
         final ApplicationContext context = new DefaultApplicationContext(ContextDefinition.class, environment);
         final ExecutionConfiguration configuration = context.getBean(ExecutionConfiguration.class);
         //noinspection unchecked
         final Comparable[] values = context.getBean(DataFeedReader.class).read(configuration.getFeed());
         final BenchmarkRunner runner = context.getBean(BenchmarkRunner.class);
         final Map<String, List<BookKeeperStatistics>> results = runner.run(values);
-        final String base = "/Users/milad/Projects/Java/sorting/src/main/resources/reports/" + file;
+        final String base = "src/main/resources/reports/" + file;
         final List<String> algorithms = results.keySet().stream().sorted().collect(Collectors.toList());
         printMemoryBySize(results, base, algorithms);
         printDurationBySize(results, base, algorithms);
