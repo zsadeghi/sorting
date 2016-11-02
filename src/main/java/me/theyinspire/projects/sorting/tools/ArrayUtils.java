@@ -1,4 +1,4 @@
-package me.theyinspire.projects.sorting.sort.impl;
+package me.theyinspire.projects.sorting.tools;
 
 import java.util.Arrays;
 
