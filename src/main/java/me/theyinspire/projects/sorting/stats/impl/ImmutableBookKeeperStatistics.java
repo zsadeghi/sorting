@@ -12,12 +12,16 @@ public class ImmutableBookKeeperStatistics implements BookKeeperStatistics {
     private final long maximumMemory;
     private final long unreleasedMemory;
     private final long duration;
+    private final long size;
+    private final String name;
 
-    public ImmutableBookKeeperStatistics(long operations, long maximumMemory, long unreleasedMemory, long duration) {
+    public ImmutableBookKeeperStatistics(long operations, long maximumMemory, long unreleasedMemory, long duration, long size, String name) {
         this.operations = operations;
         this.maximumMemory = maximumMemory;
         this.unreleasedMemory = unreleasedMemory;
         this.duration = duration;
+        this.size = size;
+        this.name = name;
     }
 
     @Override
@@ -41,7 +45,17 @@ public class ImmutableBookKeeperStatistics implements BookKeeperStatistics {
     }
 
     @Override
+    public long size() {
+        return size;
+    }
+
+    @Override
+    public String name() {
+        return name;
+    }
+
+    @Override
     public String toString() {
-        return "Operations: " + operations + "\nPeak Memory: " + maximumMemory + "\nUnreleased Memory: " + unreleasedMemory + "\nDuration: " + duration + "ms";
+        return "<n=" + size + ",op=" + operations + ",mem=" + maximumMemory + ",t=" + duration + "ms>";
     }
 }

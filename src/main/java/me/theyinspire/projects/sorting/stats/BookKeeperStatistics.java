@@ -14,4 +14,8 @@ public interface BookKeeperStatistics {
 
     long duration();
 
+    long size();
+
+    String name();
+
 }

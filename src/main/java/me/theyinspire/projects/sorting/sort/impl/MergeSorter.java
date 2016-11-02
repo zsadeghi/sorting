@@ -103,7 +103,7 @@ public class MergeSorter<E extends Comparable<E>> implements Sorter<E> {
 
     @Override
     public final BookKeeperStatistics sort(E[] items) {
-        final BookKeeper keeper = new DefaultBookKeeper();
+        final BookKeeper keeper = new DefaultBookKeeper(items.length, "MergeSort");
         keeper.useMemory(items.length);
         sort(items, 0, items.length, keeper);
         keeper.releaseMemory(items.length);

@@ -14,8 +14,12 @@ public class DefaultBookKeeper implements BookKeeper {
     private long operations;
     private long start;
     private boolean done;
+    private final long size;
+    private final String name;
 
-    public DefaultBookKeeper() {
+    public DefaultBookKeeper(long size, String name) {
+        this.size = size;
+        this.name = name;
         memory = 0L;
         maximumMemory = 0L;
         operations = 0L;
@@ -61,7 +65,7 @@ public class DefaultBookKeeper implements BookKeeper {
     @Override
     public BookKeeperStatistics done() {
         done = true;
-        return new ImmutableBookKeeperStatistics(operations, maximumMemory, memory, System.currentTimeMillis() - start);
+        return new ImmutableBookKeeperStatistics(operations, maximumMemory, memory, System.currentTimeMillis() - start, size, name);
     }
 
 }

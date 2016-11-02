@@ -55,7 +55,7 @@ public class InsertionSorter<E extends Comparable<E>> implements Sorter<E> {
      */
     @Override
     public BookKeeperStatistics sort(E[] items) {
-        final BookKeeper keeper = new DefaultBookKeeper();
+        final BookKeeper keeper = new DefaultBookKeeper(items.length, "InsertionSort");
         keeper.useMemory(items.length);
         for (int i = 1; i < items.length; i++) {
             E item = items[i];

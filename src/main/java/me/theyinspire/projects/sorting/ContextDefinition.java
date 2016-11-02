@@ -3,13 +3,19 @@ package me.theyinspire.projects.sorting;
 import me.theyinspire.projects.sorting.config.ConfigurationResolver;
 import me.theyinspire.projects.sorting.config.ExecutionConfiguration;
 import me.theyinspire.projects.sorting.config.impl.DefaultConfigurationResolver;
+import me.theyinspire.projects.sorting.execution.ApplicationContext;
 import me.theyinspire.projects.sorting.execution.Environment;
 import me.theyinspire.projects.sorting.execution.api.Bean;
 import me.theyinspire.projects.sorting.feed.DataFeedReader;
 import me.theyinspire.projects.sorting.feed.impl.LinkedListDataFeedReader;
 import me.theyinspire.projects.sorting.measure.SortednessMeasurer;
 import me.theyinspire.projects.sorting.measure.impl.MemoizingSortednessMeasurer;
+import me.theyinspire.projects.sorting.sort.Sorter;
 import me.theyinspire.projects.sorting.sort.impl.*;
+import me.theyinspire.projects.sorting.stats.BenchmarkRunner;
+import me.theyinspire.projects.sorting.stats.Sampler;
+import me.theyinspire.projects.sorting.stats.impl.DefaultBenchmarkRunner;
+import me.theyinspire.projects.sorting.stats.impl.DefaultSampler;
 
 import java.io.IOException;
 import java.util.Comparator;
@@ -64,6 +70,16 @@ public class ContextDefinition {
     @Bean
     public QuickSorter quickSorter() {
         return new QuickSorter(Comparator.naturalOrder());
+    }
+
+    @Bean
+    public Sampler sampler() {
+        return new DefaultSampler();
+    }
+
+    @Bean
+    public BenchmarkRunner benchmarkRunner(ApplicationContext context, Sampler sampler, ExecutionConfiguration configuration, SortednessMeasurer measurer) {
+        return new DefaultBenchmarkRunner(context.getBeansOfType(Sorter.class).values(), sampler, measurer, configuration.getRuns());
     }
 
 }

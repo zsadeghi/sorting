@@ -9,6 +9,7 @@ import me.theyinspire.projects.sorting.feed.DataFeed;
 public class ExecutionConfiguration {
 
     private DataFeed<?> feed;
+    private int runs;
 
     public DataFeed<?> getFeed() {
         return feed;
@@ -18,4 +19,11 @@ public class ExecutionConfiguration {
         this.feed = feed;
     }
 
+    public int getRuns() {
+        return runs;
+    }
+
+    public void setRuns(int runs) {
+        this.runs = runs;
+    }
 }

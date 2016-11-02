@@ -19,49 +19,40 @@ public class QuickSorter<E extends Comparable<E>> implements Sorter<E> {
         this.comparator = comparator;
     }
 
-    private void sort(E[] items, int from, int to, BookKeeper keeper) {
+    private void sort(E[] items, int from, int to) {
         if (from < to - 1) {
             if (to - from == 2) {
-                keeper.performOperation(1);
                 if (comparator.compare(items[from], items[to - 1]) > 0) {
-                    keeper.performOperation(1);
                     ArrayUtils.swap(items, from, to - 1);
                 }
                 return;
             }
-            int middle = partition(items, from, to, keeper);
-            sort(items, from, middle, keeper);
-            sort(items, middle + 1, to, keeper);
+            int middle = partition(items, from, to);
+            sort(items, from, middle);
+            sort(items, middle + 1, to);
         }
     }
 
-    private int partition(E[] items, int from, int to, BookKeeper keeper) {
-        keeper.useMemory(1);
-        keeper.performOperation(1);
+    private int partition(E[] items, int from, int to) {
         final E partition = items[to - 1];
         int smaller = from - 1;
         int seen = from;
         while (seen < to - 1) {
-            keeper.performOperation(1);
             if (comparator.compare(partition, items[seen]) >= 0) {
-                keeper.performOperation(1);
                 smaller ++;
                 ArrayUtils.swap(items, smaller, seen);
             }
-            keeper.performOperation(1);
             seen ++;
         }
-        keeper.performOperation(1);
         ArrayUtils.swap(items, smaller + 1, to - 1);
-        keeper.releaseMemory(1);
         return smaller + 1;
     }
 
     @Override
     public BookKeeperStatistics sort(E[] items) {
-        final BookKeeper keeper = new DefaultBookKeeper();
+        final BookKeeper keeper = new DefaultBookKeeper(items.length, "QuickSorter");
         keeper.useMemory(items.length);
-        sort(items, 0, items.length, keeper);
+        sort(items, 0, items.length);
         keeper.releaseMemory(items.length);
         return keeper.done();
     }

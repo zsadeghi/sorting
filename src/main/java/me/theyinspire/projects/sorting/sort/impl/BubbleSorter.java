@@ -25,7 +25,7 @@ public class BubbleSorter<E extends Comparable<E>> implements Sorter<E> {
      */
     @Override
     public BookKeeperStatistics sort(E[] items) {
-        final BookKeeper keeper = new DefaultBookKeeper();
+        final BookKeeper keeper = new DefaultBookKeeper(items.length, "BubbleSort");
         keeper.useMemory(items.length);
         for (int i = 0; i < items.length - 1; i ++) {
             for (int j = items.length - 1; j > i; j --) {

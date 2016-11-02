@@ -15,6 +15,7 @@ import java.io.IOException;
 public class RawConfiguration {
 
     private FeedConfiguration feed;
+    private Integer runs = 3;
 
     public FeedConfiguration getFeed() {
         return feed;
@@ -24,6 +25,14 @@ public class RawConfiguration {
         this.feed = feed;
     }
     
+    public Integer getRuns() {
+        return runs;
+    }
+
+    public void setRuns(Integer runs) {
+        this.runs = runs;
+    }
+
     public ExecutionConfiguration compile() throws IOException {
         final ExecutionConfiguration configuration = new ExecutionConfiguration();
         final DataFeed<?> feed;
@@ -45,7 +54,7 @@ public class RawConfiguration {
             throw new IllegalStateException("Unsupported feed type: " + getFeed());
         }
         configuration.setFeed(feed);
+        configuration.setRuns(runs);
         return configuration;
     }
-    
 }
