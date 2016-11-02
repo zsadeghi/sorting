@@ -12,10 +12,6 @@ import java.util.Iterator;
  */
 public abstract class AbstractDataFeed<E extends Comparable<E>> implements DataFeed<E> {
 
-    public AbstractDataFeed() {
-        reset();
-    }
-
     @Override
     public Iterator<Record<E>> iterator() {
         return new DataFeedIterator<E>(this);

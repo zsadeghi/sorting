@@ -1,4 +1,7 @@
 feed:
   type: random
-  bound: 100
-  size: 10
+  size: 10000
+  bound: 2000000000
+#  type: csv
+#  path: /Users/milad/Downloads/thads2013n.txt
+#  column: 1

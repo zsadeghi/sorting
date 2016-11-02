@@ -6,9 +6,9 @@ import me.theyinspire.projects.sorting.measure.SortednessMeasurer;
  * @author Zohreh Sadeghi (zsadeghi@uw.edu)
  * @since 1.0 (11/1/16, 7:23 PM)
  */
-public class MemoizingSortednessMeasurer<E extends Comparable<E>> implements SortednessMeasurer<E> {
+public class MemoizingSortednessMeasurer implements SortednessMeasurer {
 
-    public double measure(E[] input) {
+    public <E extends Comparable<E>> double measure(E[] input) {
         int inputLength = input.length;
         int[] endings = new int[inputLength + 1];
         int length = 0;

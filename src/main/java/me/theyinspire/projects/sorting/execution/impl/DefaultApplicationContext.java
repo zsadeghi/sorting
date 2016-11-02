@@ -48,6 +48,7 @@ public class DefaultApplicationContext implements ApplicationContext {
         }
         final List<RawBean> definitions = new ArrayList<>(collectDerivedDefinitions(configurationInstance));
         definitions.add(0, new PredefinedRawBean(environment));
+        definitions.add(0, new PredefinedRawBean(this));
         while (!definitions.isEmpty()) {
             DependencyResolution dependencyResolution = null;
             for (RawBean candidate : definitions) {
@@ -72,7 +73,19 @@ public class DefaultApplicationContext implements ApplicationContext {
             }
             final RawBean rawBean = dependencyResolution.getBean();
             definitions.remove(rawBean);
-            final BeanDefinition definition = new ImmutableBeanDefinition(rawBean.getName(), rawBean.getType(), rawBean.getBeanCreator().getBeanFactory(dependencyResolution.getResolutions()));
+            final BeanFactory beanFactory = rawBean.getBeanCreator().getBeanFactory(dependencyResolution.getResolutions());
+            final BeanFactory delegatingFactory;
+            switch (rawBean.getScope()) {
+                case PROTOTYPE:
+                    delegatingFactory = new PrototypeBeanFactory(beanFactory);
+                    break;
+                case SINGLETON:
+                    delegatingFactory = new SingletonBeanFactory(beanFactory);
+                    break;
+                default:
+                    throw new IllegalStateException("Unknown bean scope: " + rawBean.getScope());
+            }
+            final BeanDefinition definition = new ImmutableBeanDefinition(rawBean.getName(), rawBean.getType(), delegatingFactory);
             if (!beans.containsKey(definition.getType())) {
                 beans.put(definition.getType(), new ArrayList<>());
             }
@@ -101,7 +114,7 @@ public class DefaultApplicationContext implements ApplicationContext {
     private List<RawBean> collectDerivedDefinitions(Object configurationInstance) {
         return Arrays.stream(configuration.getMethods())
                 .filter(method -> method.isAnnotationPresent(Bean.class))
-                .map(method -> new ImmutableRawBean(method.getName(), method.getReturnType(), getDependencies(method), new DefaultBeanCreator(method, configurationInstance)))
+                .map(method -> new ImmutableRawBean(method.getName(), method.getReturnType(), method.getAnnotation(Bean.class).scope(), getDependencies(method), new DefaultBeanCreator(method, configurationInstance)))
                 .collect(Collectors.toList());
     }
 

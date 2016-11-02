@@ -18,6 +18,7 @@ public class RandomNumberDataFeed extends AbstractDataFeed<Integer> {
     public RandomNumberDataFeed(Integer maximum, Integer size) {
         this.maximum = maximum;
         this.size = size;
+        reset();
     }
 
     @Override

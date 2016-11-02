@@ -27,6 +27,7 @@ public class CsvDataFeed<E extends Comparable<E>> extends AbstractDataFeed<E> {
         this.column = column;
         this.path = path;
         this.ignoreFirst = ignoreFirst;
+        reset();
     }
 
     @Override

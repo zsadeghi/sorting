@@ -3,6 +3,7 @@ package me.theyinspire.projects.sorting.execution.impl;
 import me.theyinspire.projects.sorting.execution.BeanCreator;
 import me.theyinspire.projects.sorting.execution.BeanDependency;
 import me.theyinspire.projects.sorting.execution.RawBean;
+import me.theyinspire.projects.sorting.execution.api.Scope;
 
 import java.util.List;
 
@@ -14,12 +15,14 @@ public class ImmutableRawBean implements RawBean {
 
     private final String name;
     private final Class<?> type;
+    private final Scope scope;
     private final List<BeanDependency> dependencies;
     private final BeanCreator beanCreator;
 
-    public ImmutableRawBean(String name, Class<?> type, List<BeanDependency> dependencies, BeanCreator beanCreator) {
+    public ImmutableRawBean(String name, Class<?> type, Scope scope, List<BeanDependency> dependencies, BeanCreator beanCreator) {
         this.name = name;
         this.type = type;
+        this.scope = scope;
         this.dependencies = dependencies;
         this.beanCreator = beanCreator;
     }
@@ -42,6 +45,11 @@ public class ImmutableRawBean implements RawBean {
     @Override
     public BeanCreator getBeanCreator() {
         return beanCreator;
+    }
+
+    @Override
+    public Scope getScope() {
+        return scope;
     }
 
 }

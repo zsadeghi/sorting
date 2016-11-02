@@ -3,6 +3,7 @@ package me.theyinspire.projects.sorting.execution.impl;
 import me.theyinspire.projects.sorting.execution.BeanCreator;
 import me.theyinspire.projects.sorting.execution.BeanDependency;
 import me.theyinspire.projects.sorting.execution.RawBean;
+import me.theyinspire.projects.sorting.execution.api.Scope;
 
 import java.util.Collections;
 import java.util.List;
@@ -39,5 +40,10 @@ public class PredefinedRawBean implements RawBean {
     @Override
     public BeanCreator getBeanCreator() {
         return new DelegateBeanCreator(bean);
+    }
+
+    @Override
+    public Scope getScope() {
+        return Scope.SINGLETON;
     }
 }
